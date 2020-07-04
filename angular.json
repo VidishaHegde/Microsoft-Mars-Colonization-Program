@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "Microsoft-Mars-Colonization-Program"
+    }
+  },
+  "defaultProject": "Microsoft-Mars-Colonization-Program",
+  "cli": {
+    "analytics": false
+  }
 }
