@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
@@ -9,7 +10,7 @@ export class BoardComponent implements OnInit {
 	squares : any[];
 	xIsNext : boolean;
 	winner : string;
-	isSinglePlayer : boolean;
+
 
 
   constructor() { }
@@ -21,7 +22,7 @@ export class BoardComponent implements OnInit {
   	this.squares = Array(9).fill(null);
   	this.winner = null;
   	this.xIsNext = true;
-  	this.isSinglePlayer = false;
+  
   
   }
 
@@ -34,14 +35,16 @@ export class BoardComponent implements OnInit {
   	if(!this.squares[idx]){
   		this.squares.splice(idx,1,this.player);
   		this.xIsNext = !this.xIsNext;
-  		if(isSinglePlayer){
-  			makeBotMove();
-  		}
+  		// if(isSinglePlayer){
+  		// 	makeBotMove();
+  		// }
   	}
   	this.winner = this.calculateWinner();
   }
 
-  
+  // makeBotMove(){
+  	
+  // }
 
   calculateWinner(){
   	const lines = [

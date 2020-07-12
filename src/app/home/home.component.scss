@@ -1,0 +1,27 @@
+
+svg#bg {
+    background-image: url("/assets/images/background0.jpg");
+    position: absolute;
+    z-index: -1;
+  }
+
+.buttons{
+    padding: 200px;
+}
+
+.button {
+    display: inline-block;
+    zoom: 1;
+    padding: 30px ;
+    margin: 40px;
+    cursor: pointer;
+    border: 2px solid rgb(181, 211, 201);
+    border-radius: 15px;
+    box-shadow: 6px 6px 0px #1a2341;
+    overflow: hidden;
+    font: bold 30px arial, helvetica, sans-serif;
+    text-decoration: none;
+    white-space: nowrap;
+    color: white;
+    background-color: #010b5f;
+  }
