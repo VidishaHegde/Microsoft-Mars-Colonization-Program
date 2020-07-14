@@ -18,7 +18,6 @@ export class MultiplayerComponent extends BoardComponent implements OnInit {
   	if(!this.squares[idx]){
   		this.squares.splice(idx,1,this.player);
   		this.xIsNext = !this.xIsNext;
-  	
   		
   	}
   	this.winner = this.calculateWinner();
