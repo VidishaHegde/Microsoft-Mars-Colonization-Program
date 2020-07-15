@@ -1,34 +1,44 @@
 <svg id="bg" width="100%" height="100%">
 </svg>
 
-<!-- <app-singleplayer></app-singleplayer> -->
+
+
+
 <div id="container">
-	
+	<div id="rightPane">
+		<button class="button" (click)="newGame()"> Start new game</button>
+		<div class="box" *ngIf="showPlayer&&!winner&&!tie">
+			<p>Players</p>
+			<h2>
+				Human: X<br>
+				Computer: O
+				{{check}}
+			</h2>
+		</div>
+
+
+		<div class="box" *ngIf="huWinner">
+			<h3>
+				You won the game!!
+			</h3>
+		</div>
+		<div class="box" *ngIf="aiWinner">
+			<h3>
+				You lost the game :(
+			</h3>
+		</div>
+		<div class="box" *ngIf="tie&&!winner">
+			<h3>
+				It's a tie!
+			</h3>
+		</div>
+	</div>
+
 	<div id="square">
 		<main>
 			<app-square *ngFor="let val of squares; let i = index" [value]="val" [disabled] = "disable" (click)="makeMove(i)">
 			</app-square>
 		</main>
 	</div>
-	<div id = "options">
-		<div id="rightPane">
-			<button class="button" (click)="newGame()"> Start new game</button>
-			<div class="box" *ngIf="!winner">
-				<h2>
-					Current Player
-				</h2>
-			</div>
-		</div>
-		<div id = "leftPane">
-
-
-			<div class="box" *ngIf="winner">
-				<h3>
-					Player {{winner}} won the game!!
-				</h3>
-			</div>
-		</div>
-
-	</div>
-
 </div>
+

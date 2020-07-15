@@ -8,6 +8,7 @@ import { Square } from "../square/square";
 })
 export class BoardComponent implements OnInit {
 
+
    squares: Square[];
   playerTurn: boolean;
   winner: string;
@@ -27,6 +28,12 @@ export class BoardComponent implements OnInit {
   ];
 
 
+  tie : boolean;
+  public check: number = 0;
+	
+	showPlayer: boolean = false;
+
+
 
 
 	constructor() { }
@@ -34,14 +41,8 @@ export class BoardComponent implements OnInit {
 	ngOnInit(): void {
 		this.newGame();
 	}
-	// newGame() {
-	// 	this.showPlayer = true;
-	// 	this.squares = Array(9).fill(null);
-	// 	this.winner = null;
-	// 	this.xIsNext = true;
- //     this.tie = false;
 
- //  }
+	
    
   
   
@@ -112,6 +113,7 @@ newGame() {
     this.winner = null;
     this.isDraw = false;
     this.disable = false;
+    this.tie = false;
   }
 
   get playerMarker() {
@@ -169,6 +171,7 @@ newGame() {
   }
 
   checkTie() {
+    this.check=this.check+1;
     if (
       this.winner === null &&
       //* Checks whether all squares are filled
@@ -181,6 +184,7 @@ newGame() {
     ) {
       return true;
     }
+    if(this.check==5) return true;
   }
 	// makeBotMove(){
 

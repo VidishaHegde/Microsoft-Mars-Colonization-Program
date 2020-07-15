@@ -10,11 +10,15 @@ import {Square} from '../square/square';
 export class SingleplayerComponent extends BoardComponent implements OnInit{
   //squares : any[];
   xIsNext : boolean;
-  //winner : string;
+
+  winner : string;
+  huWinner:boolean;
+  aiWinner:boolean;
+
   tie : boolean;
   squares: Square[];
   playerTurn: boolean;
-  winner: string;
+  
   isDraw: boolean;
   playerXwins: number;
   playerOwins: number;
@@ -33,22 +37,30 @@ export class SingleplayerComponent extends BoardComponent implements OnInit{
 
   constructor() {
     super();
-    //this.newGame();
+
    }
 
   ngOnInit(): void {
-    console.log("started");
     this.newGame();
-
   }
+
   newGame(){
    this.squares = Array(9).fill(null);
     this.playerTurn = true;
     this.winner = null;
+
     this.isDraw = false;
     this.disable = false;
   
   
+
+    this.huWinner=false;
+    this.aiWinner=false;
+    this.xIsNext = true;
+    this.tie = false;
+    this.showPlayer=true;
+    this.check=0;
+
   }
   huplayer = "X";
   aiplayer = "O";
@@ -157,6 +169,7 @@ export class SingleplayerComponent extends BoardComponent implements OnInit{
       //this.xIsNext = !this.xIsNext;
       let board = this.squares;
       let move = this.findBestMove(board);
+
       console.log(move);
       console.log(board);
       this.winner = this.isWinner();
@@ -175,12 +188,32 @@ export class SingleplayerComponent extends BoardComponent implements OnInit{
     this.winner = this.isWinner();
     if (this.winner === "X") {
       this.playerXwins += 1;
+      this.huWinner = true;
     } else if (this.winner === "O") {
       this.playerOwins += 1;
+      this.aiWinner = true;
     }
     //* Check for Tie
     this.isDraw = this.checkTie();
+
+      //console.log(move);
+      //console.log(board);
+     
+      //console.log(this.squares);
+      
+    
+
+    
+    if(this.checkTie()){
+      this.tie = true;
+
+    }
+
+
+
   }
+}
+
 
   
 
@@ -265,4 +298,4 @@ export class SingleplayerComponent extends BoardComponent implements OnInit{
 //         }
 //     };
 
-}
+
