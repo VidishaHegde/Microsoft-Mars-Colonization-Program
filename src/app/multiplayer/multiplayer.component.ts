@@ -5,6 +5,7 @@ import {BoardComponent} from '../board/board.component';
   selector: 'app-multiplayer',
   templateUrl: './multiplayer.component.html',
   styleUrls: ['./multiplayer.component.scss']
+  
 })
 export class MultiplayerComponent extends BoardComponent implements OnInit {
 
@@ -12,15 +13,9 @@ export class MultiplayerComponent extends BoardComponent implements OnInit {
   super(); }
 
   ngOnInit(): void {
+  	this.newGame();
   }
-
-  makeMove(idx: number){
-  	if(!this.squares[idx]){
-  		this.squares.splice(idx,1,this.player);
-  		this.xIsNext = !this.xIsNext;
-  		
-  	}
-  	this.winner = this.calculateWinner();
-  }
-
+  disable: false;
+  
+  
 }

@@ -1,12 +1,42 @@
-button{
-    width: 100%;
-    height:100%;
+.square {
+  width: 100%;
+  height: 100%;
+  font-size: 5rem;
+  color: #fff;
+  border: white solid 6px;
+  border-radius: 0.3rem;
+  transition: all 0.5s;
+  transform-style: preserve-3d;
+  background-color: black;
+
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.1);
+    
+  };
+  
+
 }
 
-p{
-    font-size: 40px;
-	font-weight: bold;
-    font-family: sans-serif;
-    color: black;
-    text-shadow: 2px 2px 2px #747272;
+.square-x {
+  @extend .square;
+ /* background: linear-gradient(to right, #598bff, #3366ff);*/
+
+  /*transform: rotateY(180deg);*/
+}
+
+.square-o {
+  @extend .square;
+  /*background: linear-gradient(to right, #ff708d, #ff3d71);*/
+  /*transform: rotateY(180deg);*/
+}
+
+.square-empty {
+  @extend .square;
+  background: black;
+}
+
+.square-win {
+  @extend .square;
+  background: linear-gradient(to left, #2dbd64, #38ef7d);
 }

@@ -3,26 +3,32 @@
 
 <!-- <app-singleplayer></app-singleplayer> -->
 <div id="container">
-	<div id="rightPane">
-		<button class="button" (click)="newGame()"> Start new game</button>
-		<div class="box" *ngIf="showPlayer&&!winner">
-			<h2>
-				Current Player : {{player}}
-			</h2>
-		</div>
-
-
-		<div class="box" *ngIf="winner">
-			<h3>
-				Player {{winner}} won the game!!
-			</h3>
-		</div>
-	</div>
-
+	
 	<div id="square">
 		<main>
-			<app-square *ngFor="let val of squares; let i = index" [value]="val" (click)="makeMove(i)">
+			<app-square *ngFor="let val of squares; let i = index" [value]="val" [disabled] = "disable" (click)="makeMove(i)">
 			</app-square>
 		</main>
 	</div>
+	<div id = "options">
+		<div id="rightPane">
+			<button class="button" (click)="newGame()"> Start new game</button>
+			<div class="box" *ngIf="!winner">
+				<h2>
+					Current Player
+				</h2>
+			</div>
+		</div>
+		<div id = "leftPane">
+
+
+			<div class="box" *ngIf="winner">
+				<h3>
+					Player {{winner}} won the game!!
+				</h3>
+			</div>
+		</div>
+
+	</div>
+
 </div>

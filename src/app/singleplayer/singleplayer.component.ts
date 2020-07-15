@@ -1,16 +1,35 @@
 import { Component, OnInit } from '@angular/core';
 import {BoardComponent} from '../board/board.component';
+import {Square} from '../square/square';
 
 @Component({
   selector: 'app-singleplayer',
   templateUrl: './singleplayer.component.html',
   styleUrls: ['./singleplayer.component.scss']
-})
+}) 
 export class SingleplayerComponent extends BoardComponent implements OnInit{
-  squares : any[];
+  //squares : any[];
   xIsNext : boolean;
-  winner : string;
+  //winner : string;
   tie : boolean;
+  squares: Square[];
+  playerTurn: boolean;
+  winner: string;
+  isDraw: boolean;
+  playerXwins: number;
+  playerOwins: number;
+  disable = false;
+  possibleWins = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+  ];
+
 
   constructor() {
     super();
@@ -23,15 +42,17 @@ export class SingleplayerComponent extends BoardComponent implements OnInit{
 
   }
   newGame(){
-    this.squares = Array(9).fill(null);
+   this.squares = Array(9).fill(null);
+    this.playerTurn = true;
     this.winner = null;
-    this.xIsNext = true;
-    this.tie = false;
+    this.isDraw = false;
+    this.disable = false;
   
   
   }
-  huplayer = "x";
-  aiplayer = "o";
+  huplayer = "X";
+  aiplayer = "O";
+
 
   isMovesLeft(board): boolean{
     for(let i=0;i<board.length;i++){
@@ -44,25 +65,29 @@ export class SingleplayerComponent extends BoardComponent implements OnInit{
 
 
   evaluate(board): number{
+
     for(let i=0;i<9;i+= 3){
-      if(board[i]===board[i+1] && board[i]===board[i+2]){
-        if(board[i]===this.aiplayer) return 10;
-        else if(board[i]===this.huplayer) return -10;
+     
+      if(board[i] && board[i+1] && board[i+2] && board[i].player===board[i+1].player && board[i].player===board[i+2].player){
+        if(board[i].player===this.aiplayer) return 10;
+        else if(board[i].player===this.huplayer) return -10;
       }
-      if(board[i/3]===board[i/3+3] && board[i/3]===board[i/3+6]){
-        if(board[i/3] === this.aiplayer) 
+    
+
+      if(board[i/3] && board[i/3+6] && board[i/3+3] && board[i/3].player===board[i/3+3].player && board[i/3].player===board[i/3+6].player){
+        if(board[i/3].player === this.aiplayer) 
           return 10;
-        else if(board[i/3]===this.huplayer) return -10;
+        else if(board[i/3].player===this.huplayer) return -10;
       }
     }
-      if(board[0]==board[4] && board[0]==board[8]){
-        if(board[0] === this.aiplayer) return 10;
-        else if(board[0]===this.huplayer) return -10;
+      if(board[0] && board[4] && board[8]&& board[0].player==board[4].player && board[0].player==board[8].player){
+        if(board[0].player === this.aiplayer) return 10;
+        else if(board[0].player===this.huplayer) return -10;
 
       }
-      if(board[2]==board[4] && board[4]==board[6]){
-        if(board[2] === this.aiplayer) return 10;
-        else if(board[2]===this.huplayer) return -10;
+      if(board[2] && board[4] && board[6]&& board[2].player==board[4].player && board[4].player==board[6].player){
+        if(board[2].player === this.aiplayer) return 10;
+        else if(board[2].player===this.huplayer) return -10;
 
       }
 
@@ -78,7 +103,7 @@ export class SingleplayerComponent extends BoardComponent implements OnInit{
         let best = -1000;
         for(let i=0;i<9;i++){
           if(board[i]===null){
-            board[i] = this.aiplayer;
+            board[i]= {player:"O", win: false};
             var temp = this.minimax(board, depth+1, !isMax);
             if(best<temp){
               best = temp;
@@ -93,7 +118,7 @@ export class SingleplayerComponent extends BoardComponent implements OnInit{
         let best = 1000;
         for(let i=0;i<9;i++){
           if(board[i]===null){
-            board[i] = this.huplayer;
+            board[i] = {player:"X", win: false};
             var temp = this.minimax(board, depth+1, !isMax);
             if(best>temp){
               best = temp;
@@ -113,7 +138,7 @@ export class SingleplayerComponent extends BoardComponent implements OnInit{
       let bestMove = -1;
       for(let i=0;i<9;i++){
           if(board[i]===null){
-            board[i] = this.aiplayer;
+            board[i] = {player:"O", win: false};
             var moveVal = this.minimax(board, 0, false);
             board[i] = null;
             if(moveVal>bestVal){
@@ -128,22 +153,33 @@ export class SingleplayerComponent extends BoardComponent implements OnInit{
 
     makeMove(idx: number){
     if(!this.squares[idx]){
-      this.squares.splice(idx,1,this.huplayer);
+      this.squares.splice(idx,1,{player: "X", win: false });
       //this.xIsNext = !this.xIsNext;
       let board = this.squares;
       let move = this.findBestMove(board);
       console.log(move);
       console.log(board);
-      this.squares.splice(move,1,this.aiplayer);
+      this.winner = this.isWinner();
+    if (this.winner === "X") {
+      this.playerXwins += 1;
+    } else if (this.winner === "O") {
+      this.playerOwins += 1;
+    }
+    //* Check for Tie
+    this.isDraw = this.checkTie();
+      this.squares.splice(move,1,{player: "O", win: false });
       console.log(this.squares);
 
       
     }
-    this.winner = this.calculateWinner();
-    if(this.checkTie()){
-      this.tie = true;
-
+    this.winner = this.isWinner();
+    if (this.winner === "X") {
+      this.playerXwins += 1;
+    } else if (this.winner === "O") {
+      this.playerOwins += 1;
     }
+    //* Check for Tie
+    this.isDraw = this.checkTie();
   }
 
   

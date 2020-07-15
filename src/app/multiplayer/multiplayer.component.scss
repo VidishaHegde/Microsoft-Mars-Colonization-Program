@@ -1,24 +1,49 @@
+html{
+  background: url("/assets/images/background.jpg"); 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
 svg#bg {
   background-image: url("/assets/images/background.jpg");
+  background-repeat: repeat;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
   position: absolute;
-  z-index: -10;
+  box-sizing: border-box;
+  height: 100%;
+
 }
 #container{
   padding: 100px;
+  background-image: url("/assets/images/background.jpg");
+  background-repeat: repeat;
+  background-size: 100% 100%;
   
   
 }
 #rightPane{
   width:50%;
   height:100%;
-  float: right;
+  align-content: right;
   justify-content: center;  
   
 }
-#square{
+#leftPane{
   width:50%;
   height:100%;
-  float: left;
+  align-content: right;
+    justify-content: center; 
+
+}
+#square{
+  width:50%;
+  height:50%;
+  align-content: center;
+  /*float: left;*/
   justify-content: center;
   
 }
@@ -52,17 +77,17 @@ svg#bg {
   }
 
 h2{
-	font-size: 40px;
+  font-size: 40px;
   font-weight: 900;
   font-family: Tahoma, sans-serif;
-	color: rgb(138, 4, 82);
-	text-shadow: 3px 2px 2px  slategray;
+  color: rgb(138, 4, 82);
+  text-shadow: 3px 2px 2px  slategray;
 }
 h3{
-	font-size: 40px;
+  font-size: 40px;
   font-weight: bold;
   font-family: Tahoma, sans-serif;
-	color: rgb(255, 81, 0);
+  color: rgb(255, 81, 0);
   text-shadow: 2px 2px 2px #050505;
   animation:blinking 1s infinite;
 }
@@ -72,9 +97,9 @@ h3{
   }
 
 main {
-	display : grid;
-	grid-template-columns: 200px 200px 200px;
-	grid-gap : 0px;
+  display : grid;
+  grid-template-columns: 200px 200px 200px;
+  grid-gap : 0px;
   z-index: 1;
   margin-left:10%;
   
@@ -88,5 +113,4 @@ main {
     z-index: 1;
     
   }
-  
   

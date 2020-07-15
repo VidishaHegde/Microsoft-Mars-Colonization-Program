@@ -1,1 +1,11 @@
-<button><p>{{value}}</p></button>
+<button
+  [disabled]="disabled"
+  [ngClass]="{
+    'square-empty': !value,
+    'square-x': value && value.player === 'X' && !value.win,
+    'square-o': value && value.player === 'O' && !value.win,
+    'square-win': value && value.win
+  }"
+>
+  {{ value && value.player }}
+</button>
