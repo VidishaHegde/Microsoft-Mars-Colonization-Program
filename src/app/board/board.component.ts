@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class BoardComponent implements OnInit {
 
   tie : boolean;
-
+  public check: number = 0;
 	squares: any[];
 	xIsNext: boolean;
 	winner: string;
@@ -28,7 +28,7 @@ export class BoardComponent implements OnInit {
 		this.winner = null;
 		this.xIsNext = true;
      this.tie = false;
-
+    
   }
    
   
@@ -38,7 +38,9 @@ export class BoardComponent implements OnInit {
   get player(){
   	return this.xIsNext ? 'X' : 'O';
   }
+
   checkTie() {
+    this.check=this.check+1;
     if (
       this.winner === null &&
       //* Checks whether all squares are filled
@@ -51,6 +53,7 @@ export class BoardComponent implements OnInit {
     ) {
       return true;
     }
+    if(this.check==5) return true;
   }
   calculateWinner(){
     const lines = [

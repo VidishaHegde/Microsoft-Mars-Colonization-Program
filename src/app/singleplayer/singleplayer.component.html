@@ -1,22 +1,40 @@
-<p>singleplayer works!</p>
-<!-- <app-singleplayer></app-singleplayer> -->
-<h1> Current Player  </h1>
-<button (click) = "newGame()"> Start new game</button>
+<svg id="bg" width="100%" height="100%">
+</svg>
+<div id="container">
+	<div id="rightPane">
+		<button class="button" (click)="newGame()"> Start new game</button>
+		<div class="box" *ngIf="showPlayer&&!winner&&!tie">
+			<p>Players</p>
+			<h2>
+				Human: X<br>
+				Computer: O
+				{{check}}
+			</h2>
+		</div>
 
-<h2 *ngIf = "winner">
-	Player {{winner}} won the game!!
 
-</h2>
-<h2 *ngIf = "tie">
-	It's a tie!!
-</h2> 
+		<div class="box" *ngIf="huWinner">
+			<h3>
+				You won the game!!
+			</h3>
+		</div>
+		<div class="box" *ngIf="aiWinner">
+			<h3>
+				You lost the game :(
+			</h3>
+		</div>
+		<div class="box" *ngIf="tie&&!winner">
+			<h3>
+				It's a tie!
+			</h3>
+		</div>
+	</div>
 
-<main>
-	<app-square
-		*ngFor = "let val of squares; let i = index"
-		[value] = "val"
-		(click) =  "makeMove(i)"
+	<div id="square">
+		<main>
+			<app-square *ngFor="let val of squares; let i = index" [value]="val" (click)="makeMove(i)">
+			</app-square>
+		</main>
+	</div>
+</div>
 
-		>
-	</app-square>
-</main>

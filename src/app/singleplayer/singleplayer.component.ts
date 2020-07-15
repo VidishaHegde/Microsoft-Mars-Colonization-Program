@@ -10,25 +10,27 @@ export class SingleplayerComponent extends BoardComponent implements OnInit{
   squares : any[];
   xIsNext : boolean;
   winner : string;
+  huWinner:boolean;
+  aiWinner:boolean;
   tie : boolean;
 
   constructor() {
     super();
-    //this.newGame();
+
    }
 
   ngOnInit(): void {
-    console.log("started");
-    this.newGame();
-
   }
+
   newGame(){
     this.squares = Array(9).fill(null);
     this.winner = null;
+    this.huWinner=false;
+    this.aiWinner=false;
     this.xIsNext = true;
     this.tie = false;
-  
-  
+    this.showPlayer=true;
+    this.check=0;
   }
   huplayer = "x";
   aiplayer = "o";
@@ -132,18 +134,22 @@ export class SingleplayerComponent extends BoardComponent implements OnInit{
       //this.xIsNext = !this.xIsNext;
       let board = this.squares;
       let move = this.findBestMove(board);
-      console.log(move);
-      console.log(board);
+      //console.log(move);
+      //console.log(board);
       this.squares.splice(move,1,this.aiplayer);
-      console.log(this.squares);
-
+      //console.log(this.squares);
       
     }
+
     this.winner = this.calculateWinner();
+    if(this.winner=="x") this.huWinner=true;
+    if(this.winner=="o") this.aiWinner=true;
     if(this.checkTie()){
       this.tie = true;
 
     }
+
+
   }
 
   
