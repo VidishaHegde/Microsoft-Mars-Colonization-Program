@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+body,html{
+	padding:0px;
+	margin: 0px;
+
+}
+.container{
+  background-image: url("/assets/images/background.jpg");
+  background-repeat: no-repeat;
+ 
+  background-size: 100% 100%;
+  width: 100%;
+  /*padding: 5%;*/
+  align-content: center;
+  
+}
+

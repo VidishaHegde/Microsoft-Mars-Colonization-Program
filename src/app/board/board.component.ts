@@ -43,6 +43,10 @@ export class BoardComponent implements OnInit {
 		this.newGame();
 	}
 
+  undo(board, lastTurn){
+    
+  }
+
 	
    
   
@@ -115,6 +119,7 @@ newGame() {
     this.isDraw = false;
     this.disable = false;
     this.tie = false;
+    
   }
 
   get playerMarker() {

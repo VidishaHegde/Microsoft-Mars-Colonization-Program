@@ -14,6 +14,7 @@ export class MultiplayerComponent extends BoardComponent implements OnInit {
 
   ngOnInit(): void {
   	this.newGame();
+  	
   }
   disable: false;
   

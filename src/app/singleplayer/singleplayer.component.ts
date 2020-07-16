@@ -61,7 +61,7 @@ export class SingleplayerComponent extends BoardComponent implements OnInit{
     this.showPlayer=true;
     this.check=0;
     this.huplayer="X";
-    this.aiplayer="Y";
+    this.aiplayer="O";
 
   }
   huplayer = "X";
