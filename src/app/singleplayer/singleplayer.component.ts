@@ -32,7 +32,7 @@ export class SingleplayerComponent extends BoardComponent implements OnInit{
     [2, 5, 8],
     [0, 4, 8],
     [2, 4, 6]
-  ];
+  ]; 
 
 
   constructor() {
@@ -60,6 +60,8 @@ export class SingleplayerComponent extends BoardComponent implements OnInit{
     this.tie = false;
     this.showPlayer=true;
     this.check=0;
+    this.huplayer="X";
+    this.aiplayer="Y";
 
   }
   huplayer = "X";
