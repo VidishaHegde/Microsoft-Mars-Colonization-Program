@@ -2,14 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { Square } from "../square/square";
 
 @Component({
-	selector: 'app-board',
-	templateUrl: './board.component.html',
-	styleUrls: ['./board.component.scss']
+  selector: 'app-board',
+  templateUrl: './board.component.html',
+  styleUrls: ['./board.component.scss']
 })
 export class BoardComponent implements OnInit {
 
 
-   squares: Square[];
+  squares: Square[];
   playerTurn: boolean;
   winner: string;
   isDraw: boolean;
@@ -26,96 +26,89 @@ export class BoardComponent implements OnInit {
     [0, 4, 8],
     [2, 4, 6]
   ];
- 
 
 
-  tie : boolean;
+
+  tie: boolean;
   public check: number = 0;
-	
-	showPlayer: boolean = false;
+
+  showPlayer: boolean = false;
   lastXMove: number;
   lastYMove: number;
 
+  constructor() { }
 
-
-
-	constructor() { }
-
-	ngOnInit(): void {
-		this.newGame();
-	}
-
-  undo(board, lastTurn){
-    board[lastTurn] = null;
-    
+  ngOnInit(): void {
+    this.newGame();
   }
-  
 
-	
-   
-  
-  
-  
+  undo(board, lastTurn) {
+    board[lastTurn] = null;
 
- //  get player(){
- //  	return this.xIsNext ? 'X' : 'O';
- //  }
- //  checkTie() {
- //    if (
- //      this.winner === null &&
- //      //* Checks whether all squares are filled
- //      this.squares.every(square => {
- //        return (
- //          square.player == "X" ||
- //          square.player == "O"
- //        );
- //      })
- //    ) {
- //      return true;
- //    }
- //  }
- //  calculateWinner(){
- //    const lines = [
- //    [0,1,2],
- //    [3,4,5],
- //    [6,7,8],
- //    [0,3,6],
- //    [1,4,7],
- //    [2,5,8],
- //    [0,4,8],
- //    [2,4,6]
- //    ];
-
- //    for(let i=0;i<lines.length;i++){
- //      const [a,b,c] = lines[i];
-
- //      if(
- //        this.squares[a] && 
- //        this.squares[a].player === this.squares[b].player &&
- //        this.squares[a].player === this.squares[c].player
- //      ){
- //        return this.squares[a].player;
- //      }
- //    }
- //    return null;
- //  }
+  }
 
 
-    
- //  makeMove(idx: number){
- //  	if(!this.squares[idx]){
- //  		this.squares.splice(idx,1,{player: this.player, win:false});
- //  		this.xIsNext = !this.xIsNext;
-  		
- //  	}
- //  	this.winner = this.calculateWinner();
- //    if(this.checkTie()){
- //      this.tie = true;
 
- //    }
- //  }
 
-newGame() {
+  //  get player(){
+  //  	return this.xIsNext ? 'X' : 'O';
+  //  }
+  //  checkTie() {
+  //    if (
+  //      this.winner === null &&
+  //      //* Checks whether all squares are filled
+  //      this.squares.every(square => {
+  //        return (
+  //          square.player == "X" ||
+  //          square.player == "O"
+  //        );
+  //      })
+  //    ) {
+  //      return true;
+  //    }
+  //  }
+  //  calculateWinner(){
+  //    const lines = [
+  //    [0,1,2],
+  //    [3,4,5],
+  //    [6,7,8],
+  //    [0,3,6],
+  //    [1,4,7],
+  //    [2,5,8],
+  //    [0,4,8],
+  //    [2,4,6]
+  //    ];
+
+  //    for(let i=0;i<lines.length;i++){
+  //      const [a,b,c] = lines[i];
+
+  //      if(
+  //        this.squares[a] && 
+  //        this.squares[a].player === this.squares[b].player &&
+  //        this.squares[a].player === this.squares[c].player
+  //      ){
+  //        return this.squares[a].player;
+  //      }
+  //    }
+  //    return null;
+  //  }
+
+
+
+  //  makeMove(idx: number){
+  //  	if(!this.squares[idx]){
+  //  		this.squares.splice(idx,1,{player: this.player, win:false});
+  //  		this.xIsNext = !this.xIsNext;
+
+  //  	}
+  //  	this.winner = this.calculateWinner();
+  //    if(this.checkTie()){
+  //      this.tie = true;
+
+  //    }
+  //  }
+
+  newGame() {
     //* Resetting Game
     this.squares = Array(9).fill(null);
     this.playerTurn = true;
@@ -123,8 +116,8 @@ newGame() {
     this.isDraw = false;
     this.disable = false;
     this.tie = false;
+    this.check=0;
 
-    
   }
 
   get playerMarker() {
@@ -136,10 +129,10 @@ newGame() {
     if (this.squares[index] === null) {
       //* Replaces empty square with playerMarker
       this.squares.splice(index, 1, { player: this.playerMarker, win: false });
-      if(this.playerMarker=="X"){
+      if (this.playerMarker == "X") {
         this.lastXMove = index;
       }
-      else{
+      else {
         this.lastYMove = index;
       }
       //* Switches turn
@@ -158,8 +151,8 @@ newGame() {
     //   new ScoreSheet(this.playerXwins, this.playerOwins)
     // );
   }
-  delay(ms:number){
-    return new Promise(resolve=>setTimeout(resolve,ms));
+  delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   valueAtSquare(square: Square): string {
@@ -191,7 +184,7 @@ newGame() {
   }
 
   checkTie() {
-    this.check=this.check+1;
+    this.check = this.check + 1;
     if (
       this.winner === null &&
       //* Checks whether all squares are filled
@@ -204,15 +197,15 @@ newGame() {
     ) {
       return true;
     }
-    if(this.check==5) return true;
+    if (this.check==9) return true;
   }
-	// makeBotMove(){
+  // makeBotMove(){
 
-	// }
+  // }
 
 }
 
-    
-  
 
-  
+
+
+
