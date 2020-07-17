@@ -40,10 +40,21 @@ button{
 .square-empty {
   @extend .square;
   background: black;
-  min-height: 100px;
+  min-height: 150px;
+  min-width: 150px;
 }
 
 .square-win {
   @extend .square;
   background: linear-gradient(to left, #2dbd64, #38ef7d);
+}
+
+
+@media screen and (max-width: 600px) {
+  .square-empty {
+    @extend .square;
+    background: black;
+    min-height: 100px;
+    min-width: 100px;
+  }
 }

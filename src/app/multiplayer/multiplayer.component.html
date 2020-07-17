@@ -1,63 +1,24 @@
 
-
-<!-- <div id="container">
-	<div id="square">
+<div id = "container" fxLayout = "row wrap" fxLayout.lt-sm="column" fxLayoutGap = "10%" fxLayoutAlign = "center">
+	<div id="square" fxFlex = "1 1 calc(50% -10%)" fxFlex.lt-md="1 1 calc(50%-2%)" fxFlex.lt-sm = "100%" style="--aspect-ratio: 4/1">
 		<main>
 			<app-square *ngFor="let val of squares; let i = index" [value]="val" [disabled] = "disable" (click)="makeMove(i)">
 			</app-square>
 		</main>
 	</div>
-	<div id="rightPane">
-		<button class="button" (click)="newGame()"> Start new game</button>
-		<div class="box" *ngIf="showPlayer&&!winner&&!tie">
-			<p>Players</p>
-			<h2>
-				Human: X<br>
-				Computer: O
-				{{check}}
-			</h2>
-		</div>
-
-
-		<div class="box" *ngIf="huWinner">
-			<h3>
-				You won the game!!
-			</h3>
-		</div>
-		<div class="box" *ngIf="aiWinner">
-			<h3>
-				You lost the game :(
-			</h3>
-		</div>
-		<div class="box" *ngIf="tie&&!winner">
-			<h3>
-				It's a tie!
-			</h3>
-		</div>
-	</div>
-
-	
-</div> -->
-<div id = "container" fxLayout = "row wrap" fxLayout.lt-sm="column" fxLayoutGap = "2%" fxLayoutAlign = "flex-start">
-	<div id="square" fxFlex = "0 1 calc(50% - 2%)" fxFlex.lt-md="0 1 calc(50%-2%)" fxFlex.lt-sm = "100%" style="--aspect-ratio: 1/1">
-		<main>
-			<app-square *ngFor="let val of squares; let i = index" [value]="val" [disabled] = "disable" (click)="makeMove(i)">
-			</app-square>
-		</main>
-	</div>
-	<div id = "buttons"  fxFlex = "0 1 calc(50% - 2%)" fxFlex.lt-md="0 1 calc(50%-2%)" fxFlex.lt-sm = "100%">
+	<div   fxFlex = "1 1 calc(50% - 2%)" fxFlex.lt-md="0 1 calc(50%-2%)" fxFlex.lt-sm = "100%">
 	<div id="rightPane">
 		<button class="button" (click)="newGame()"> Start new game</button>
 		
 	</div>
 
-	<div id="leftPane">
-		<div class="box" *ngIf="!winner&&!tie">
+	<div id="rightPane">
+		<div class="box" *ngIf="!winner&&!isDraw">
 			<p>Players</p>
 			<h2>
 				Player-1: X<br>
-				Player-2: O
-				{{check}}
+				Player-2: O<br>
+
 			</h2>
 		</div>
 		<div class="box" *ngIf="winner">
@@ -66,7 +27,7 @@
 			</h3>
 		</div>
 		
-		<div class="box" *ngIf="tie&&!winner">
+		<div class="box" *ngIf="isDraw&&!winner">
 			<h3>
 				It's a tie!
 			</h3>
