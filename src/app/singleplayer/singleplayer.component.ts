@@ -182,12 +182,12 @@ export class SingleplayerComponent extends BoardComponent implements OnInit{
     }
     //* Check for Tie
     this.isDraw = this.checkTie();
+    (async()=>{
+      console.log("thinking..");
+       await this.delay(500);
+      console.log("stop");
       this.squares.splice(move,1,{player: "O", win: false });
-      console.log(this.squares);
-
-      
-    }
-    this.winner = this.isWinner();
+      this.winner = this.isWinner();
     if (this.winner === "X") {
       this.playerXwins += 1;
       this.huWinner = true;
@@ -197,6 +197,15 @@ export class SingleplayerComponent extends BoardComponent implements OnInit{
     }
     //* Check for Tie
     this.isDraw = this.checkTie();
+
+    })();
+    
+      
+      console.log(this.squares);
+
+      
+    }
+    
 
       //console.log(move);
       //console.log(board);

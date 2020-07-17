@@ -17,6 +17,7 @@ import { BoardComponent } from './board/board.component';
 import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import {MatGridListModule} from '@angular/material/grid-list';
+import {LayoutModule} from '@angular/cdk/layout';
 
 
 
@@ -39,7 +40,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
     FlexLayoutModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatGridListModule
+    MatGridListModule,
+    LayoutModule
     
     
 

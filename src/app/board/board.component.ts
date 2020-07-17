@@ -33,6 +33,8 @@ export class BoardComponent implements OnInit {
   public check: number = 0;
 	
 	showPlayer: boolean = false;
+  lastXMove: number;
+  lastYMove: number;
 
 
 
@@ -44,8 +46,10 @@ export class BoardComponent implements OnInit {
 	}
 
   undo(board, lastTurn){
+    board[lastTurn] = null;
     
   }
+  
 
 	
    
@@ -119,6 +123,7 @@ newGame() {
     this.isDraw = false;
     this.disable = false;
     this.tie = false;
+
     
   }
 
@@ -131,6 +136,12 @@ newGame() {
     if (this.squares[index] === null) {
       //* Replaces empty square with playerMarker
       this.squares.splice(index, 1, { player: this.playerMarker, win: false });
+      if(this.playerMarker=="X"){
+        this.lastXMove = index;
+      }
+      else{
+        this.lastYMove = index;
+      }
       //* Switches turn
       this.playerTurn = !this.playerTurn;
     }
@@ -146,6 +157,9 @@ newGame() {
     // this.scoreService.publish(
     //   new ScoreSheet(this.playerXwins, this.playerOwins)
     // );
+  }
+  delay(ms:number){
+    return new Promise(resolve=>setTimeout(resolve,ms));
   }
 
   valueAtSquare(square: Square): string {

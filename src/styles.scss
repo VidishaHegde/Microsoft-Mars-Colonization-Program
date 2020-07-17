@@ -2,6 +2,11 @@
 body,html{
 	padding:0px;
 	margin: 0px;
+	position: absolute;
+	top:0;
+	bottom:0;
+	right:0;
+	left:0;
 
 }
 .container{
@@ -11,6 +16,9 @@ body,html{
   background-size: 100% 100%;
   width: 100%;
   /*padding: 5%;*/
+  height: 120%;
+
+  
   align-content: center;
   
 }

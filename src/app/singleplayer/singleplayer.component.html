@@ -38,14 +38,14 @@
 
 	
 </div> -->
-<div id = "container" fxLayout = "row wrap" fxLayout.lt-sm="column" fxLayoutGap = "0%" fxLayoutAlign = "flex-start">
-	<div id="square" fxFlex = "0 1 calc(50% - 0%)" fxFlex.lt-md="0 1 calc(50%-0%)" fxFlex.lt-sm = "100%" style="--aspect-ratio: 1/1">
+<div id = "container" fxLayout = "row wrap" fxLayout.lt-sm="column" fxLayoutGap = "2%" fxLayoutAlign = "flex-start">
+	<div id="square" fxFlex = "0 1 calc(50% - 2%)" fxFlex.lt-md="0 1 calc(50%-2%)" fxFlex.lt-sm = "100%" style="--aspect-ratio: 1/1">
 		<main>
 			<app-square *ngFor="let val of squares; let i = index" [value]="val" [disabled] = "disable" (click)="makeMove(i)">
 			</app-square>
 		</main>
 	</div>
-	<div id = "buttons"  fxFlex = "0 1 calc(50% - 0%)" fxFlex.lt-md="0 1 calc(50%-0%)" fxFlex.lt-sm = "100%">
+	<div id = "buttons"  fxFlex = "0 1 calc(50% - 2%)" fxFlex.lt-md="0 1 calc(50%-2%)" fxFlex.lt-sm = "100%">
 	<div id="rightPane">
 		<button class="button" (click)="newGame()"> Start new game</button>
 		

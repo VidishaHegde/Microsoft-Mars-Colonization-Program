@@ -18,26 +18,25 @@ html{
   background-image: url("/assets/images/background.jpg");
   background-repeat: repeat;
   background-size: 100% 100%;
+  height: -webkit-fill-available;
   width: 100%;
   padding: 5%;
   align-content: center;
   box-sizing: border-box;
   
 }
-/*#rightPane{
-  width:50%;
-  height:100%;
-  align-content: right;
+#rightPane{
+  display: flex;
+  
   justify-content: center;  
   
 }
 #leftPane{
-  width:50%;
-  height:100%;
-  align-content: left;
-    justify-content: center; 
+  display: flex;
+  
+  justify-content: center; 
 
-}*/
+}
 
 
 /*#square {
