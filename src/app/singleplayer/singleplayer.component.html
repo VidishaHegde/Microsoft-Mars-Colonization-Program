@@ -13,13 +13,9 @@
 	</div>
 
 	<div id="rightPane">
-		<div class="box" *ngIf="showPlayer&&!winner&&!tie">
-			<p>Players</p>
-			<h2>
-				Human: X {{playerXwins}}<br>
-				Computer: O {{playerOwins}}
-				
-			</h2>
+		<div class="box">
+			<h1> Scores</h1>
+			<app-score-sheet [player1name]="player1name" [player2name]="player2name" [player1score]="playerXwins" [player2score]="playerOwins"></app-score-sheet>
 		</div>
 		<div class="box" *ngIf="huWinner">
 			<h3>
