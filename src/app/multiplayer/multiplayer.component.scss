@@ -11,6 +11,15 @@ html {
   box-sizing: border-box;
   align-content: center;
 }
+mat-grid-list{
+  width: 200px;
+  height: 200px;
+}
+mat-grid-tile{
+  width: 100px;
+  height: 100px;
+  color: black;
+}
 
 #container {
   background-image: url("/assets/images/background.jpg");

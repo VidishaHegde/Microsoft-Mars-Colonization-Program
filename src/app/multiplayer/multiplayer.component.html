@@ -13,13 +13,11 @@
 	</div>
 
 	<div id="rightPane">
-		<div class="box" *ngIf="!winner&&!isDraw">
-			<p>Players</p>
-			<h2>
-				Player-1: X<br>
-				Player-2: O<br>
+		<div class="box">
+			<h1> Scores</h1>
+			<app-score-sheet [player1name]="player1name" [player2name]="player2name" [player1score]="playerXwins" [player2score]="playerOwins"></app-score-sheet>
 
-			</h2>
+			
 		</div>
 		<div class="box" *ngIf="winner">
 			<h3>

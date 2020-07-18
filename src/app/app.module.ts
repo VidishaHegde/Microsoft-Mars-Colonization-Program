@@ -18,6 +18,7 @@ import { HomeComponent } from './home/home.component';
 import { HeaderComponent } from './header/header.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {LayoutModule} from '@angular/cdk/layout';
+import { ScoreSheetComponent } from './score-sheet/score-sheet.component';
 
 
 
@@ -32,7 +33,8 @@ import {LayoutModule} from '@angular/cdk/layout';
     BoardComponent,
 
     HomeComponent,
-    HeaderComponent
+    HeaderComponent,
+    ScoreSheetComponent
 
   ],
   imports: [

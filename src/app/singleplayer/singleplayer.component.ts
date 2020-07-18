@@ -10,15 +10,12 @@ import { Square } from '../square/square';
 export class SingleplayerComponent extends BoardComponent implements OnInit {
   //squares : any[];
   xIsNext: boolean;
-
   winner: string;
   huWinner: boolean;
   aiWinner: boolean;
-
   tie: boolean;
   squares: Square[];
   playerTurn: boolean;
-
   isDraw: boolean;
   playerXwins: number;
   playerOwins: number;
@@ -48,12 +45,10 @@ export class SingleplayerComponent extends BoardComponent implements OnInit {
     this.squares = Array(9).fill(null);
     this.playerTurn = true;
     this.winner = null;
-
     this.isDraw = false;
     this.disable = false;
-
-
-
+    this.playerXwins=0;
+    this.playerOwins=0;
     this.huWinner = false;
     this.aiWinner = false;
     this.xIsNext = true;
@@ -76,6 +71,7 @@ export class SingleplayerComponent extends BoardComponent implements OnInit {
     }
     return false;
   }
+  
 
 
   evaluate(board): number {
@@ -165,45 +161,47 @@ export class SingleplayerComponent extends BoardComponent implements OnInit {
 
   }
 
+  checkGameOver(){
+    this.winner = this.isWinner();
+    if (this.winner === "X") {
+        this.playerXwins += 1;
+      } 
+      else if (this.winner === "O") {
+        this.playerOwins += 1;
+      }
+      this.isDraw = this.checkTie();
+      if (this.checkTie()) {
+      this.tie = true;
+
+      }
+      (async () => {
+        if(this.tie || this.winner){
+        await this.delay(500);
+        this.startAgain();
+        
+      }
+
+      })();
+
+  }
+
   makeMove(idx: number) {
     if (!this.squares[idx]) {
       this.squares.splice(idx, 1, { player: "X", win: false });
       //this.xIsNext = !this.xIsNext;
       let board = this.squares;
       let move = this.findBestMove(board);
-
       console.log(move);
       console.log(board);
-      this.winner = this.isWinner();
-      if (this.winner === "X") {
-        this.playerXwins += 1;
-      } else if (this.winner === "O") {
-        this.playerOwins += 1;
-      }
-      //* Check for Tie
-      this.isDraw = this.checkTie();
-      if (this.checkTie()) {
-      this.tie = true;
-
-    }
-
+      this.checkGameOver();
       (async () => {
         if(!this.tie && !this.winner){
         console.log("thinking..");
         await this.delay(500);
         console.log("stop");
         this.squares.splice(move, 1, { player: "O", win: false });
-        this.winner = this.isWinner();
-        if (this.winner === "X") {
-          this.playerXwins += 1;
-          this.huWinner = true;
-        } else if (this.winner === "O") {
-          this.playerOwins += 1;
-          this.aiWinner = true;
+        this.checkGameOver();
         }
-        //* Check for Tie
-        this.isDraw = this.checkTie();
-      }
 
       })();
 
@@ -212,108 +210,6 @@ export class SingleplayerComponent extends BoardComponent implements OnInit {
 
 
     }
-
-
-    //console.log(move);
-    //console.log(board);
-
-    //console.log(this.squares);
-
-
-
-
-    if (this.checkTie()) {
-      this.tie = true;
-
-    }
-
-
-
   }
 }
-
-
-
-
-
-
-
-//   makeMove (idx: number) {
-
-//        if(!this.squares[idx]){
-//   		this.squares.splice(idx,1,this.player);
-//   		this.xIsNext = !this.xIsNext;
-
-//   		makeMove(squares);
-//   		// }
-//   	}
-//   	this.winner = this.calculateWinner();
-//     };
-
-//    findMove(board) {
-//         var bestMoveValue = -100 ;
-//         var move = 0;
-//         for (var i = 0; i < board.length; i++) {
-//             var newBoard = this.makeMove(i,this.player , board);
-//             if (newBoard) {
-//                 var predictedMoveValue = this.minValue(newBoard);
-//                 if (predictedMoveValue > bestMoveValue) {
-//                     bestMoveValue = predictedMoveValue;
-//                     move = i;
-//                 }
-//             }
-//         }
-//         return move;
-//     };
-
-//     minValue(board) {
-//         var winner = GameUtil.checkForWinner(board);
-//         if (winner == this.aiPlayerLabel )  {
-//             return 1;
-//       } else if (winner == this.humanPlayerLabel) {
-//             return -1;
-//         } else if (this.checkTie(board)) {
-//             return 0;
-//         } else {
-//             var bestMoveValue = 100;
-//             var move = 0;
-//             for (var i = 0; i < board.length; i++) {
-//                 var newBoard = this.makeMove(i, this.humanPlayerLabel, board);
-//                 if (newBoard) {
-//                     var predictedMoveValue = this.maxValue(newBoard);
-//                     if (predictedMoveValue < bestMoveValue) {
-//                         bestMoveValue = predictedMoveValue;
-//                         move = i;
-//                     }
-//                 }
-//             }
-//             return bestMoveValue;
-//         }
-//     };
-
-//     maxValue(board) {
-//         var winner = GameUtil.checkForWinner(board);
-//         if (winner == this.aiPlayerLabel )  {
-//             return 1;
-//         } else if (winner == this.humanPlayerLabel) {
-//             return -1;
-//         } else if (this.checkTie(board)) {
-//             return 0;
-//         } else {
-//             var bestMoveValue = -100;
-//             var move = 0;
-//             for (var i = 0; i < board.length; i++) {
-//                 var newBoard = this.makeMove(i, this.aiPlayerLabel, board);
-//                 if (newBoard) {
-//                     var predictedMoveValue = this.minValue(newBoard);
-//                     if (predictedMoveValue > bestMoveValue) {
-//                         bestMoveValue = predictedMoveValue;
-//                         move = i;
-//                     }
-//                 }
-//             }
-//             return bestMoveValue;
-//         }
-//     };
-
 

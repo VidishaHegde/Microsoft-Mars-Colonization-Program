@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Square } from "../square/square";
+import {ScoreSheetComponent} from '../score-sheet/score-sheet.component';
 
 @Component({
   selector: 'app-board',
@@ -35,6 +36,8 @@ export class BoardComponent implements OnInit {
   showPlayer: boolean = false;
   lastXMove: number;
   lastYMove: number;
+  player1name: string;
+  player2name: string;
 
   constructor() { }
 
@@ -46,70 +49,23 @@ export class BoardComponent implements OnInit {
     board[lastTurn] = null;
 
   }
-
-
-
-
-  //  get player(){
-  //  	return this.xIsNext ? 'X' : 'O';
-  //  }
-  //  checkTie() {
-  //    if (
-  //      this.winner === null &&
-  //      //* Checks whether all squares are filled
-  //      this.squares.every(square => {
-  //        return (
-  //          square.player == "X" ||
-  //          square.player == "O"
-  //        );
-  //      })
-  //    ) {
-  //      return true;
-  //    }
-  //  }
-  //  calculateWinner(){
-  //    const lines = [
-  //    [0,1,2],
-  //    [3,4,5],
-  //    [6,7,8],
-  //    [0,3,6],
-  //    [1,4,7],
-  //    [2,5,8],
-  //    [0,4,8],
-  //    [2,4,6]
-  //    ];
-
-  //    for(let i=0;i<lines.length;i++){
-  //      const [a,b,c] = lines[i];
-
-  //      if(
-  //        this.squares[a] && 
-  //        this.squares[a].player === this.squares[b].player &&
-  //        this.squares[a].player === this.squares[c].player
-  //      ){
-  //        return this.squares[a].player;
-  //      }
-  //    }
-  //    return null;
-  //  }
-
-
-
-  //  makeMove(idx: number){
-  //  	if(!this.squares[idx]){
-  //  		this.squares.splice(idx,1,{player: this.player, win:false});
-  //  		this.xIsNext = !this.xIsNext;
-
-  //  	}
-  //  	this.winner = this.calculateWinner();
-  //    if(this.checkTie()){
-  //      this.tie = true;
-
-  //    }
-  //  }
-
+  
   newGame() {
     //* Resetting Game
+    this.squares = Array(9).fill(null);
+    this.playerTurn = true;
+    this.winner = null;
+    this.isDraw = false;
+    this.disable = false;
+    this.tie = false;
+    this.check=0;
+    this.playerXwins = 0;
+    this.playerOwins = 0;
+    this.player1name = "Player 1";
+    this.player2name = "Player 2";
+
+  }
+  startAgain(){
     this.squares = Array(9).fill(null);
     this.playerTurn = true;
     this.winner = null;
@@ -139,17 +95,9 @@ export class BoardComponent implements OnInit {
       this.playerTurn = !this.playerTurn;
     }
     //* Check for Winner
-    this.winner = this.isWinner();
-    if (this.winner === "X") {
-      this.playerXwins += 1;
-    } else if (this.winner === "O") {
-      this.playerOwins += 1;
-    }
-    //* Check for Tie
-    this.isDraw = this.checkTie();
-    // this.scoreService.publish(
-    //   new ScoreSheet(this.playerXwins, this.playerOwins)
-    // );
+    
+    this.checkGameOver();
+    
   }
   delay(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -158,6 +106,29 @@ export class BoardComponent implements OnInit {
   valueAtSquare(square: Square): string {
     //* Returns playerMarker at specified square
     return square && square.player;
+  }
+  checkGameOver(){
+    this.winner = this.isWinner();
+    if (this.winner === "X") {
+        this.playerXwins += 1;
+      } 
+      else if (this.winner === "O") {
+        this.playerOwins += 1;
+      }
+      this.isDraw = this.checkTie();
+      if (this.checkTie()) {
+      this.tie = true;
+
+      }
+      (async () => {
+        if(this.tie || this.winner){
+        await this.delay(2000);
+        this.startAgain();
+        
+      }
+
+      })();
+
   }
 
   isWinner(): string {
@@ -176,6 +147,7 @@ export class BoardComponent implements OnInit {
         this.squares[a] = { ...this.squares[a], win: true };
         this.squares[b] = { ...this.squares[b], win: true };
         this.squares[c] = { ...this.squares[c], win: true };
+
         return this.squares[a].player;
       }
     }
