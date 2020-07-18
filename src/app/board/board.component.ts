@@ -31,6 +31,8 @@ export class BoardComponent implements OnInit {
 
 
   tie: boolean;
+  huWinner: boolean;
+  aiWinner: boolean;
   public check: number = 0;
 
   showPlayer: boolean = false;
@@ -73,6 +75,8 @@ export class BoardComponent implements OnInit {
     this.disable = false;
     this.tie = false;
     this.check=0;
+    this.huWinner = false;
+    this.aiWinner = false;
 
   }
 
@@ -122,7 +126,7 @@ export class BoardComponent implements OnInit {
       }
       (async () => {
         if(this.tie || this.winner){
-        await this.delay(2000);
+        await this.delay(3000);
         this.startAgain();
         
       }
@@ -169,7 +173,7 @@ export class BoardComponent implements OnInit {
     ) {
       return true;
     }
-    if (this.check==9) return true;
+    if (this.check==18) return true;
   }
   // makeBotMove(){
 

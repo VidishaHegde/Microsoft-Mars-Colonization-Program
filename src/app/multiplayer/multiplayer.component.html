@@ -1,39 +1,37 @@
-
-<div id = "container" fxLayout = "row wrap" fxLayout.lt-sm="column" fxLayoutGap = "10%" fxLayoutAlign = "center">
-	<div id="square" fxFlex = "1 1 calc(50% -10%)" fxFlex.lt-md="1 1 calc(50%-2%)" fxFlex.lt-sm = "100%" style="--aspect-ratio: 4/1">
+<div id="container" fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="10%" fxLayoutAlign="center">
+	<div id="square" fxFlex="1 1 calc(50% -10%)" fxFlex.lt-md="1 1 calc(50%-2%)" fxFlex.lt-sm="100%"
+		style="--aspect-ratio: 4/1">
 		<main>
-			<app-square *ngFor="let val of squares; let i = index" [value]="val" [disabled] = "disable" (click)="makeMove(i)">
+			<app-square *ngFor="let val of squares; let i = index" [value]="val" [disabled]="disable"
+				(click)="makeMove(i)">
 			</app-square>
 		</main>
 	</div>
-	<div   fxFlex = "1 1 calc(50% - 2%)" fxFlex.lt-md="0 1 calc(50%-2%)" fxFlex.lt-sm = "100%">
-	<div id="rightPane">
-		<button class="button" (click)="newGame()"> Start new game</button>
-		
+	<div fxFlex="1 1 calc(50% -2%)" fxFlex.lt-md="0 1 calc(50%-2%)" fxFlex.lt-sm="100%">
+		<div id="rightPane">
+			<button class="button" (click)="newGame()"> Start new game</button>
+
+		</div>
+
+		<div id="rightPane">
+			<div class="box" *ngIf="!isDraw&&!winner">
+				<app-score-sheet [player1name]="player1name" [player2name]="player2name" [player1score]="playerXwins"
+					[player2score]="playerOwins"></app-score-sheet>
+			</div>
+			<div class="box" *ngIf="winner">
+				<h3>
+					Player {{winner}} won the game!
+				</h3>
+			</div>
+
+			<div class="box" *ngIf="isDraw&&!winner">
+				<h3>
+					It's a tie!
+				</h3>
+			</div>
+		</div>
 	</div>
 
-	<div id="rightPane">
-		<div class="box">
-			<h1> Scores</h1>
-			<app-score-sheet [player1name]="player1name" [player2name]="player2name" [player1score]="playerXwins" [player2score]="playerOwins"></app-score-sheet>
 
-			
-		</div>
-		<div class="box" *ngIf="winner">
-			<h3>
-				Player {{winner}} won the game!
-			</h3>
-		</div>
-		
-		<div class="box" *ngIf="isDraw&&!winner">
-			<h3>
-				It's a tie!
-			</h3>
-		</div>
-	</div>
+
 </div>
-
-	
-
-</div> 
-

@@ -37,7 +37,6 @@ mat-grid-list {
     white-space: nowrap;
     color: white;
 }
-
 mat-grid-tile {
     display: inline;
     zoom: 1;
@@ -49,6 +48,9 @@ mat-grid-tile {
     border-radius: 15px;
     box-shadow: 6px 6px 0px #1a2341;
     background-color: #010b5f;
+}
+mat-grid-tile:active{
+    transform: translateY(4px);
 }
 
 @media screen and (max-width: 600px) {
