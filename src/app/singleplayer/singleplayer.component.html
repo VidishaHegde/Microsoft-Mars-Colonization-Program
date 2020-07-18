@@ -13,6 +13,11 @@
 	</div>
 
 	<div id="rightPane">
+		<button (click)="setLevel(1)"> Easy </button>
+		<button (click)="setLevel(2)"> Medium </button>
+		<button (click)="setLevel(3)"> Hard </button>
+
+
 		<div class="box">
 			<h1> Scores</h1>
 			<app-score-sheet [player1name]="player1name" [player2name]="player2name" [player1score]="playerXwins" [player2score]="playerOwins"></app-score-sheet>

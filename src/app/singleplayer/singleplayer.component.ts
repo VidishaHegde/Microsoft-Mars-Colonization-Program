@@ -30,6 +30,7 @@ export class SingleplayerComponent extends BoardComponent implements OnInit {
     [0, 4, 8],
     [2, 4, 6]
   ];
+  level:number;
 
 
   constructor() {
@@ -59,6 +60,7 @@ export class SingleplayerComponent extends BoardComponent implements OnInit {
     this.aiplayer = "O";
     this.player1name = "YOU"
     this.player2name = "Computer"
+    this.level = 0;
 
   }
   huplayer = "X";
@@ -105,12 +107,20 @@ export class SingleplayerComponent extends BoardComponent implements OnInit {
 
     return 0;
   }
+  setLevel(level){
+    this.level = level;
+    
+  }
 
   minimax(board, depth, isMax): number {
     var score = this.evaluate(board);
     if (score === 10) return score;
     if (score === -10) return score;
     if (!this.isMovesLeft(board)) return 0;
+    if(this.level<3){
+      if(depth==this.level) return score;
+    }
+    
     if (isMax) {
       let best = -1000;
       for (let i = 0; i < 9; i++) {
