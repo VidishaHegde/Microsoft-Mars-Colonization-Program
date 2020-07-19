@@ -11,8 +11,6 @@ export class SingleplayerComponent extends BoardComponent implements OnInit {
   //squares : any[];
   xIsNext: boolean;
   winner: string;
-  huWinner: boolean;
-  aiWinner: boolean;
   tie: boolean;
   squares: Square[];
   playerTurn: boolean;
@@ -58,7 +56,7 @@ export class SingleplayerComponent extends BoardComponent implements OnInit {
     this.check = 0;
     this.huplayer = "X";
     this.aiplayer = "O";
-    this.player1name = "YOU"
+    this.player1name = "You"
     this.player2name = "Computer"
     this.level = 0;
 
@@ -177,9 +175,11 @@ export class SingleplayerComponent extends BoardComponent implements OnInit {
     this.winner = this.isWinner();
     if (this.winner === "X") {
         this.playerXwins += 1;
+        this.huWinner = true;
       } 
       else if (this.winner === "O") {
         this.playerOwins += 1;
+        this.aiWinner = true;
       }
       this.isDraw = this.checkTie();
       if (this.checkTie()) {
@@ -188,7 +188,7 @@ export class SingleplayerComponent extends BoardComponent implements OnInit {
       }
       (async () => {
         if(this.tie || this.winner){
-        await this.delay(500);
+        await this.delay(3000);
         this.startAgain();
         
       }
