@@ -13,6 +13,7 @@ export class BoardComponent implements OnInit {
   squares: Square[];
   playerTurn: boolean;
   winner: string;
+  winnerName: string;
   isDraw: boolean;
   playerXwins: number;
   playerOwins: number;
@@ -57,14 +58,15 @@ export class BoardComponent implements OnInit {
     this.squares = Array(9).fill(null);
     this.playerTurn = true;
     this.winner = null;
+    this.winnerName=null;
     this.isDraw = false;
     this.disable = false;
     this.tie = false;
     this.check=0;
     this.playerXwins = 0;
     this.playerOwins = 0;
-    this.player1name = "Player 1";
-    this.player2name = "Player 2";
+    //this.player1name = "Player 1";
+    //this.player2name = "Player 2";
 
   }
   startAgain(){
@@ -114,9 +116,11 @@ export class BoardComponent implements OnInit {
   checkGameOver(){
     this.winner = this.isWinner();
     if (this.winner === "X") {
+      this.winnerName=this.player1name;
         this.playerXwins += 1;
       } 
       else if (this.winner === "O") {
+        this.winnerName=this.player2name;
         this.playerOwins += 1;
       }
       this.isDraw = this.checkTie();
