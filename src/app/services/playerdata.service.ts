@@ -14,5 +14,6 @@ export class PlayerdataService {
     this.player1nameSource.next(player1);
     this.player2nameSource.next(player2);
     
+    
   }
 }

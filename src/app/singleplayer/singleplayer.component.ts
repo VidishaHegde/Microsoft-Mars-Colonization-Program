@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BoardComponent } from '../board/board.component';
 import { Square } from '../square/square';
+import { PlayerdataService } from '../services/playerdata.service';
 
 @Component({
   selector: 'app-singleplayer',
@@ -32,8 +33,8 @@ export class SingleplayerComponent extends BoardComponent implements OnInit {
   level:number;
 
 
-  constructor() {
-    super();
+  constructor(public data: PlayerdataService) {
+    super(data);
 
   }
 

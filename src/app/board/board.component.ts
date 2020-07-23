@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Square } from "../square/square";
 import {ScoreSheetComponent} from '../score-sheet/score-sheet.component';
-
+import { PlayerdataService } from '../services/playerdata.service';
 @Component({
   selector: 'app-board',
   templateUrl: './board.component.html',
@@ -30,7 +30,8 @@ export class BoardComponent implements OnInit {
   ];
 
 
-
+  player1name;
+  player2name;
   tie: boolean;
   huWinner: boolean;
   aiWinner: boolean;
@@ -44,9 +45,11 @@ export class BoardComponent implements OnInit {
   aiplayername: string;
   huplayer = "X";
   aiplayer = "O";
-  constructor() { }
+  constructor(public data: PlayerdataService) { }
 
   ngOnInit(): void {
+    this.data.currentPlayer1.subscribe(player1name => this.player1name = player1name);
+    this.data.currentPlayer2.subscribe(player2name => this.player2name = player2name);
     this.newGame();
   }
 
@@ -164,8 +167,8 @@ export class BoardComponent implements OnInit {
     this.playerXwins = 0;
     this.playerOwins = 0;
 
-    this.huplayername = "Player 1";
-    this.aiplayername = "Player 2";
+    this.huplayername = this.player1name;
+    this.aiplayername = this.player2name;
     this.hint = "";
 
   }
