@@ -16,13 +16,13 @@
 
 		<div id="rightPane">
 			<button class="levelButton button2" (click)="setLevel(1)"> Easy </button>
-			<button class="levelButton button2" (click)="setLevel(2)"> Medium </button>
-			<button class="levelButton button2" (click)="setLevel(3)"> Hard </button>
+			<button class="levelButton button2" (click)="setLevel(3)"> Medium </button>
+			<button class="levelButton button2" (click)="setLevel(8)"> Hard </button>
 
 		</div>
 		<div id="rightPane">
 			<div class="box" *ngIf="!tie&&!winner">
-				<app-score-sheet [player1name]="player1name" [player2name]="player2name" [player1score]="playerXwins"
+				<app-score-sheet [player1name]="huplayername" [player2name]="aiplayername" [player1score]="playerXwins"
 					[player2score]="playerOwins"></app-score-sheet>
 			</div>
 			<div class="box" *ngIf="huWinner">

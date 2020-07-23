@@ -34,13 +34,15 @@ export class BoardComponent implements OnInit {
   huWinner: boolean;
   aiWinner: boolean;
   public check: number = 0;
+  hint = "";
 
   showPlayer: boolean = false;
   lastXMove: number;
   lastYMove: number;
-  player1name: string;
-  player2name: string;
-
+  huplayername: string;
+  aiplayername: string;
+  huplayer = "X";
+  aiplayer = "O";
   constructor() { }
 
   ngOnInit(): void {
@@ -51,7 +53,103 @@ export class BoardComponent implements OnInit {
     board[lastTurn] = null;
 
   }
-  
+  findBestMove(board): number {
+    let bestVal = -1000;
+    let bestMove = -1;
+
+    for (let i = 0; i < 9; i++) {
+      if (board[i] === null) {
+        board[i] = { player: this.playerMarker, win: false };
+        var moveVal = this.minimax(board, 0, false);
+        board[i] = null;
+        if (moveVal > bestVal) {
+          bestMove = i;
+          bestVal = moveVal;
+        }
+      }
+    }
+    return bestMove;
+
+  }
+  evaluate(board): number {
+
+    for (let i = 0; i < 9; i += 3) {
+
+      if (board[i] && board[i + 1] && board[i + 2] && board[i].player === board[i + 1].player && board[i].player === board[i + 2].player) {
+        if (board[i].player === this.playerMarker) return 10;
+        else if (board[i].player === this.opponenetPlayerMarker) return -10;
+      }
+
+
+      if (board[i / 3] && board[i / 3 + 6] && board[i / 3 + 3] && board[i / 3].player === board[i / 3 + 3].player && board[i / 3].player === board[i / 3 + 6].player) {
+        if (board[i / 3].player === this.playerMarker)
+          return 10;
+        else if (board[i / 3].player === this.opponenetPlayerMarker) return -10;
+      }
+    }
+    if (board[0] && board[4] && board[8] && board[0].player == board[4].player && board[0].player == board[8].player) {
+      if (board[0].player === this.playerMarker) return 10;
+      else if (board[0].player === this.opponenetPlayerMarker) return -10;
+
+    }
+    if (board[2] && board[4] && board[6] && board[2].player == board[4].player && board[4].player == board[6].player) {
+      if (board[2].player === this.playerMarker) return 10;
+      else if (board[2].player === this.opponenetPlayerMarker) return -10;
+
+    }
+
+    return 0;
+  }
+  isMovesLeft(board): boolean {
+    for (let i = 0; i < board.length; i++) {
+      if (board[i] === null) {
+        return true;
+      }
+    }
+    return false;
+  }
+  minimax(board, depth, isMax): number {
+    var score = this.evaluate(board);
+    if (score === 10) return score;
+    if (score === -10) return score;
+    if (!this.isMovesLeft(board)) return 0;
+    // if(this.level<5){
+    //   if(depth>=this.level) return score;
+    // }
+    
+    if (isMax) {
+      let best = -1000;
+      for (let i = 0; i < 9; i++) {
+        if (board[i] === null) {
+          board[i] = { player: this.playerMarker, win: false };
+          var temp = this.minimax(board, depth + 1, !isMax);
+          if (best <= temp) {
+            best = temp;
+          }
+          board[i] = null;
+
+        }
+      }
+      return best;
+    }
+    else {
+      let best = 1000;
+      for (let i = 0; i < 9; i++) {
+        if (board[i] === null) {
+          board[i] = { player: this.opponenetPlayerMarker, win: false };
+          var temp = this.minimax(board, depth + 1, !isMax);
+          if (best > temp) {
+            best = temp;
+          }
+          board[i] = null;
+
+        }
+      }
+      return best;
+
+    }
+
+  }
   newGame() {
     //* Resetting Game
     this.squares = Array(9).fill(null);
@@ -63,8 +161,9 @@ export class BoardComponent implements OnInit {
     this.check=0;
     this.playerXwins = 0;
     this.playerOwins = 0;
-    this.player1name = "Player 1";
-    this.player2name = "Player 2";
+    this.huplayername = "Player 1";
+    this.aiplayername = "Player 2";
+    this.hint = "";
 
   }
   startAgain(){
@@ -80,29 +179,9 @@ export class BoardComponent implements OnInit {
 
   }
 
-  get playerMarker() {
-    return this.playerTurn ? "X" : "O";
-  }
+  
 
-  makeMove(index: number) {
-    //* Checks whether square is empty
-    if (this.squares[index] === null) {
-      //* Replaces empty square with playerMarker
-      this.squares.splice(index, 1, { player: this.playerMarker, win: false });
-      if (this.playerMarker == "X") {
-        this.lastXMove = index;
-      }
-      else {
-        this.lastYMove = index;
-      }
-      //* Switches turn
-      this.playerTurn = !this.playerTurn;
-    }
-    //* Check for Winner
-    
-    this.checkGameOver();
-    
-  }
+  
   delay(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
@@ -178,6 +257,12 @@ export class BoardComponent implements OnInit {
   // makeBotMove(){
 
   // }
+  get playerMarker() {
+    return "O";
+  }
+  get opponenetPlayerMarker(){
+    return "X";
+  }
 
 }
 
