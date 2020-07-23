@@ -166,6 +166,8 @@ export class BoardComponent implements OnInit {
 
     this.huplayername = "Player 1";
     this.aiplayername = "Player 2";
+    // this.player1name = "Player 1";
+    // this.player2name = "Player 2";
     this.hint = "";
 
   }
