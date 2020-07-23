@@ -1,0 +1,17 @@
+<div id="container" fxLayout="row wrap" fxLayout.lt-sm="column" fxLayoutGap="1%" fxLayoutAlign="center">
+	<div class="form-popup" id="myForm">
+		<form novalidate [formGroup]="namesForm" class="form-container" #fform="ngForm" (ngSubmit)="onSubmit()">
+			<h1>Enter Player Details</h1>
+			<label><b>Player 1 </b></label>
+			<input matInput formControlName="player1" placeholder="Enter Name" type="text" required>
+			<br>
+			<label><b>Player 2 </b></label>
+			<input matInput formControlName="player2" placeholder="Enter Name" type="text" required>
+			<br>
+			<button type="submit" mat-button (onclick)="onSubmit()" class="button">Submit</button>
+			<button mat-button [disabled]="!canGo" routerLink="/multiplayer" routerLinkActive="active" class="button">Go To Game</button>
+
+		</form>
+	</div>
+</div>
+
