@@ -7,21 +7,21 @@
 			</app-square>
 		</main>
 	</div>
-	<div fxFlex="1 1 calc(50% -2%)" fxFlex.lt-md="0 1 calc(50%-2%)" fxFlex.lt-sm="100%">
+	<div fxFlex="1 1 calc(50% -2%)" fxFlex.lt-md="1 1 calc(50%-2%)" fxFlex.lt-sm="100%">
 		<div id="rightPane">
 			<button class="button" (click)="newGame()"> Start new game</button>
 
 		</div>
-		<div id = "rightPane">
-			<button class="button" (click)="showHint()">Hint</button>
+		<div id = "rightPane" *ngIf = "!showhint">
+			<button class="hint-button" (click)="showHint()">Hint</button>
 		</div>
-		<div id = "rightPane" *ngIf = "hint">
+		<div id = "rightPane" class="box" *ngIf = "showhint">
 			<h1> {{hint}} </h1>
 		</div>
 
 		<div id="rightPane">
-			<div class="box" *ngIf="!isDraw&&!winner">
-				<app-score-sheet [player1name]="huplayername" [player2name]="aiplayername" [player1score]="playerXwins"
+			<div class="box" *ngIf="!isDraw&&!winner&&!showhint">
+				<app-score-sheet [player1name]="player1name" [player2name]="player2name" [player1score]="playerXwins"
 					[player2score]="playerOwins"></app-score-sheet>
 			</div>
 			<div class="box" *ngIf="winner">

@@ -34,6 +34,8 @@ export class PlayernamesComponent implements OnInit {
     this.player1name = this.names['player1'];
     this.player2name = this.names['player2'];
     this.data.changePlayers(this.player1name, this.player2name);
+    console.log(this.player1name);
+    console.log(this.player2name);
     this.namesForm.reset({
       player1: '',
       player2: ''

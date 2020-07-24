@@ -9,10 +9,11 @@ import { PlayerdataService } from '../services/playerdata.service';
 
 })
 export class MultiplayerComponent extends BoardComponent implements OnInit {
-
-  constructor(private data: PlayerdataService) {
-    super();
+  
+  constructor(public data: PlayerdataService) {
+    super(data);
   }
+  
   player1name;
   player2name;
   ngOnInit(): void {
@@ -22,7 +23,7 @@ export class MultiplayerComponent extends BoardComponent implements OnInit {
 
   }
   disable: false;
-
+  showhint:boolean=false;
   hint: string;
 
   makeMove(index: number) {
@@ -52,7 +53,10 @@ export class MultiplayerComponent extends BoardComponent implements OnInit {
     console.log(this.playerMarker);
     console.log(this.opponenetPlayerMarker);
     this.hint = "Row:"+(row+1)+" Column: "+(column+1);
-
+    this.showhint=true;
+    setTimeout(() => {
+      this.showhint=false;
+    }, 3000);
   }
   get playerMarker() {
     return this.playerTurn ? "X" : "O";

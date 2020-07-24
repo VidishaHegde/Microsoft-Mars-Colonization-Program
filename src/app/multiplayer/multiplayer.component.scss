@@ -49,7 +49,6 @@ mat-grid-tile {
 
 .button {
   display: inline-block;
-  zoom: 1;
   padding: 5%;
   margin: 2%;
   cursor: pointer;
@@ -64,6 +63,25 @@ mat-grid-tile {
   background-image: linear-gradient(rgb(94, 255, 0),rgb(2, 151, 27));
 }
 .button:active {
+  box-shadow: 0 6px #666;
+  transform: translateY(4px);
+}
+.hint-button{
+  display: inline-block;
+  padding: 2%;
+  margin: 2%;
+  cursor: pointer;
+  border: 3px solid whitesmoke;
+  border-radius: 15px;
+  box-shadow: 5px 5px 0px #4d2901;
+  overflow: hidden;
+  font: bold 150% arial, helvetica, sans-serif;
+  text-decoration: none;
+  white-space: nowrap;
+  color: white;
+  background-image: linear-gradient(rgb(255, 208, 0),rgb(243, 159, 4));
+}
+.hint-button:active {
   box-shadow: 0 6px #666;
   transform: translateY(4px);
 }
@@ -167,5 +185,12 @@ app-square {
     border-radius: 10px;
     box-shadow: 3px 3px 0px #356320;
     font: bold 150% arial, helvetica, sans-serif;
+  }
+  .hint-button {
+    padding: 3%;
+    border: 1px solid whitesmoke;
+    border-radius: 10px;
+    box-shadow: 3px 3px 0px #794000;
+    font: bold 120% arial, helvetica, sans-serif;
   }
 }
