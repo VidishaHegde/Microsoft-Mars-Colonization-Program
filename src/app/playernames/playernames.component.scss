@@ -49,3 +49,31 @@ b{
   color: white;
   background-image: linear-gradient(rgb(0, 38, 255),rgb(2, 17, 151));
 }
+
+
+@media screen and (max-width: 600px) {
+  #container {
+    height: 100%;
+    width: 100%;
+  }
+  h1 {
+    font-size: 30px;
+  }
+  b {
+    font-size: 27px;
+  }
+  .form-popup{
+    
+    margin-top: 25px;
+    padding: 10px 30px;
+    border-radius: 10px;
+    box-shadow: 3px 3px 3px #ddc9c9;
+  }
+  .button {
+    padding: 1%;
+    border: 2px solid rgb(70, 65, 65);
+    border-radius: 10px;
+    font: bold 120% arial, helvetica, sans-serif;
+  }
+  
+}
